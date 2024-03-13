@@ -7,14 +7,14 @@ use App\Jobs\JobB;
 use App\Jobs\JobC;
 use Illuminate\Console\Command;
 
-class QueueChannelSplit extends Command
+class Case1QueueSplit extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'QueueChannelSplit';
+    protected $signature = 'Case1QueueSplit';
 
     /**
      * The console command description.
