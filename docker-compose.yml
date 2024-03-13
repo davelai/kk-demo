@@ -47,9 +47,19 @@ services:
                 - '-p${DB_PASSWORD}'
             retries: 3
             timeout: 5s
+    redis:
+        image: 'redis:alpine'
+        ports:
+            - '${REDIS_FORWARD_PORT:-6379}:6379'
+        volumes:
+            - redis_data:/data
+        networks:
+            - sail
 networks:
     sail:
         driver: bridge
 volumes:
     sail-mysql:
+        driver: local
+    redis_data:
         driver: local

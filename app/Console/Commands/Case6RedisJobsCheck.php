@@ -7,14 +7,14 @@ use App\Jobs\JobB;
 use App\Jobs\JobC;
 use Illuminate\Console\Command;
 
-class Case1QueueSplit extends Command
+class Case6RedisJobsCheck extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'case1';
+    protected $signature = 'case6';
 
     /**
      * The console command description.
@@ -28,13 +28,16 @@ class Case1QueueSplit extends Command
      */
     public function handle()
     {
-//        sail artisan queue:work --queue=booking
-//        sail artisan queue:work --queue=booking2
+//        sail artisan queue:work redis
+
+// redis-cli
+// keys *
+//        lrange laravel_database_queues:default 0 -1
 
         dispatch(new JobB(1))
-            ->onQueue('booking');
+            ->onConnection('redis');
 
         dispatch(new JobC(2))
-            ->onQueue('booking2');
+            ->onConnection('redis');
     }
 }

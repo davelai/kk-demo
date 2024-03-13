@@ -16,7 +16,7 @@ class Case3BatchJobCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'batchJobCommand';
+    protected $signature = 'case3';
 
     /**
      * The console command description.
