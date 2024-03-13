@@ -27,9 +27,9 @@ class JobC implements ShouldQueue
      */
     public function handle(): void
     {
-        Log::info('JobA, name: ' . $this->name);
+        Log::info('JobC, name: ' . $this->name);
         for ($i = 0; $i < 5; $i++) {
-            $text = $i . '-JobA(' . $this->name . ')';
+            $text = $i . '-JobC(' . $this->name . ')';
             echo $text . PHP_EOL;
             Log::info($text);
             sleep(1);

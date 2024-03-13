@@ -5,16 +5,19 @@ namespace App\Console\Commands;
 use App\Jobs\JobA;
 use App\Jobs\JobB;
 use App\Jobs\JobC;
+use App\Jobs\JobD;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Str;
 
-class Case6RedisJobsCheck extends Command
+class Case5TimeOutByQueue extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'case6';
+    protected $signature = 'case5';
 
     /**
      * The console command description.
@@ -28,16 +31,12 @@ class Case6RedisJobsCheck extends Command
      */
     public function handle()
     {
-//        sail artisan queue:work redis
+//        sail artisan queue:work connectionCTimeOut
+        // retry 的秒數是根據： 'retry_after' => 20,
 
-// redis-cli
-// keys *
-//        lrange laravel_database_queues:default 0 -1
+        dispatch(new JobD(Str::uuid()))
+            ->onConnection('connectionCTimeOut');
 
-        dispatch(new JobB(1))
-            ->onConnection('redis');
-
-        dispatch(new JobC(2))
-            ->onConnection('redis');
+//        sail artisan  queue:work connectionCTimeOut --timeout=10
     }
 }

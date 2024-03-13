@@ -58,6 +58,14 @@ return [
             'after_commit' => false,
         ],
 
+        'connectionCTimeOut' => [
+            'driver' => 'database',
+            'table' => 'c_jobs',
+            'queue' => 'default',
+            'retry_after' => 20,
+            'after_commit' => false
+        ],
+
         'beanstalkd' => [
             'driver' => 'beanstalkd',
             'host' => 'localhost',
