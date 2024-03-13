@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
-class batchJobCommand extends Command
+class Case3BatchJobCommand extends Command
 {
     /**
      * The name and signature of the console command.
@@ -31,6 +31,9 @@ class batchJobCommand extends Command
      */
     public function handle()
     {
+//   php artisan queue:work --queue=booking
+//   why: speed up the process
+
         $batch = Bus::batch([
             new JobA(1),
             new JobA(2),
