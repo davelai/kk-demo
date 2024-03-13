@@ -42,6 +42,22 @@ return [
             'after_commit' => false,
         ],
 
+        'connectionA' => [
+            'driver' => 'database',
+            'table' => 'a_jobs',
+            'queue' => 'default',
+            'retry_after' => 90,
+            'after_commit' => false,
+        ],
+
+        'connectionB' => [
+            'driver' => 'database',
+            'table' => 'b_jobs',
+            'queue' => 'default',
+            'retry_after' => 90,
+            'after_commit' => false,
+        ],
+
         'beanstalkd' => [
             'driver' => 'beanstalkd',
             'host' => 'localhost',

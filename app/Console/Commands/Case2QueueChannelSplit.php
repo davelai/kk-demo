@@ -7,14 +7,14 @@ use App\Jobs\JobB;
 use App\Jobs\JobC;
 use Illuminate\Console\Command;
 
-class Case1QueueSplit extends Command
+class Case2QueueChannelSplit extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'Case1QueueSplit';
+    protected $signature = 'Case2QueueChannelSplit';
 
     /**
      * The console command description.
@@ -28,13 +28,15 @@ class Case1QueueSplit extends Command
      */
     public function handle()
     {
-//        sail artisan queue:work --queue=booking
-//        sail artisan queue:work --queue=booking2
+// php artisan queue:work connectionA --queue=booking
+// php artisan queue:work connectionB --queue=booking2
 
         dispatch(new JobB(1))
+            ->onConnection('connectionA')
             ->onQueue('booking');
 
         dispatch(new JobC(2))
+            ->onConnection('connectionB')
             ->onQueue('booking2');
     }
 }
