@@ -31,6 +31,8 @@ class Case2QueueChannelSplit extends Command
 // php artisan queue:work connectionA --queue=booking
 // php artisan queue:work connectionB --queue=booking2
 
+// 各個 connection 可以切換 sync, redis, db ...
+
         dispatch(new JobB(1))
             ->onConnection('connectionA')
             ->onQueue('booking');
