@@ -146,3 +146,11 @@ artisan command 預設 60 秒 timeout
 //      sail artisan  queue:work connectionCTimeOut --timeout=10
 //      sail artisan  queue:work connectionCTimeOut 不給的話預設60秒 timeout
 ```
+
+## case 7. redis queue
+
+## case 8. 優先度
+
+queue 放前面的會先跑
+
+`sail artisan queue:work --queue=booking2,booking`
