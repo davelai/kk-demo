@@ -154,3 +154,10 @@ artisan command 預設 60 秒 timeout
 queue 放前面的會先跑
 
 `sail artisan queue:work --queue=booking2,booking`
+
+# Queue 的紀錄
+
+是否需要有 queue dispatch 的紀錄
+
+* 自製 helper dispatch 後寫入 Elastic
+* 自製 worker artisan command 處理完 Queue 後寫入 Elastic
