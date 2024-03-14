@@ -15,25 +15,6 @@
 * RabbitMQ：適合需要複雜的訊息提交和整合的場景，支援多種訊息模式和路由。
   * [RabbitMQ 簡介與 5 種設計模式](https://enzochang.com/rabbitmq-introduction/)
 
-## Transaction
-
-DB queue 要注意如果是同個 connection 會一起進 transaction (commit 之後才會進 table),
-如果是 redis 就不會
-
-```php
-public function handle()
-{
-    DB::beginTransaction();
-    dispatch(new JobB(1))
-    ->onConnection('redis');
-
-//        dispatch(new JobC(2));
-
-    sleep(100);
-    DB::commit();
-}
-```
-
 ## RabbitMQ
 
 ### vhost
@@ -42,6 +23,21 @@ public function handle()
 rabbitmqctl add_vhost my_vhost
 rabbitmqctl set_permissions -p my_vhost root ".*" ".*" ".*"
 ```
+
+### 消息可靠性 (同時必須有持久性)
+
+https://segmentfault.com/a/1190000023736395
+
+worker 從 db / redis queue 拿出資料之後, 
+
+如果 worker 掛掉, 資料就會消失, 
+
+沒辦法保證 consume,
+
+而 rabbit mq 可利用 [消息確認（Message Acknowledgment）](https://www.cnblogs.com/bigberg/p/8137068.html) 機制
+
+
+> abbitMQ收到消息回执（Message acknowledgment）后才将该消息从Queue中移除；如果RabbitMQ没有收到回执并检测到消费者的RabbitMQ连接断开，则RabbitMQ会将该消息发送给其他消费者（如果存在多个消费者）进行处理。
 
 ### 負載均衡
 
@@ -164,6 +160,25 @@ queue 放前面的會先跑
 `sail artisan queue:work --queue=booking2,booking`
 
 ## case 9. rabbit mq
+
+## Transaction
+
+DB queue 要注意如果是同個 connection 會一起進 transaction (commit 之後才會進 table),
+如果是 redis 就不會
+
+```php
+public function handle()
+{
+    DB::beginTransaction();
+    dispatch(new JobB(1))
+    ->onConnection('redis');
+
+//        dispatch(new JobC(2));
+
+    sleep(100);
+    DB::commit();
+}
+```
 
 # Queue 的紀錄
 
