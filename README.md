@@ -47,7 +47,9 @@ public function handle()
   * `RabbitMQ 对消息堆积的处理不好，在它的设计理念里面，消息队列是一个管道，大量的消息积压是一种不正常的情况，应当尽量去避免。当大量消息积压的时候，会导致RabbitMQ的性能急剧下降；`
 * [消息堆積解決方案](https://juejin.cn/post/7077205778465030181)
 
-## TPS 每秒事務處理量 (Transactions per second)
+## TPS vs Other MQ
+
+每秒事務處理量 (Transactions per second)
 
 * RabbitMQ: 十萬
 * Kafka: 百萬
@@ -62,3 +64,85 @@ public function handle()
 * [RabbitMQ vs Redis](https://medium.com/@contact_45426/redis-vs-rabbitmq-a-detailed-comparison-998ed1ba7fc2)
   ![](https://miro.medium.com/v2/resize:fit:720/format:webp/1*DY5PPZ4KN9tX_1JaLFKfSg.png)
 * [rabbitMQ、activeMQ、zeroMQ、Kafka、Redis 比较](https://developer.aliyun.com/article/590415)
+
+# Laravel Queue 用法
+
+## case 1: worker by queue
+
+可以根據 queue 來分不同 worker, 但是 driver 都是用同一個
+
+```php
+dispatch(new JobB(1))
+            ->onQueue('booking');
+```
+
+
+## case 2: worker by connection
+
+可以根據 connection 來分不同的 worker,
+
+並且不同 connection 可以用不同的 driver,
+
+可以切換 sync, redis, db ...
+
+```php
+dispatch(new JobB(1))
+    ->onConnection('connectionA')
+    ->onQueue('booking');
+```
+
+## case 3: batch job
+
+無順序性要求, 
+
+可以將任務切分成多個 job,
+
+給多個 worker 同時執行,
+
+`select * from job_batches;`
+
+查看 batch 分發的 job 狀態
+
+```php
+Bus::batch([
+    new JobA(1),
+    new JobA(2),
+    new JobA(3),
+])
+```
+
+## case 4. chain job
+
+有順序性要求, 且失敗會中斷
+
+```php
+Bus::chain([
+    new JobB('c 1'),
+    new JobB('c 2'),
+    new JobB('c 3'),
+])->dispatch();
+```
+
+## case 5. job timeout
+
+可以設定 job 的 timeout， 
+
+避免 job 執行時間過長
+
+例如供應商 API 連線過久
+
+```php
+    // 超過 3 秒後 fail
+    public int $timeout = 3;
+```
+
+## case 6. worker timeout
+
+要注意如果 job 沒設置 timeout,
+
+artisan command 預設 60 秒 timeout
+
+```shell
+//      sail artisan  queue:work connectionCTimeOut --timeout=10
+//      sail artisan  queue:work connectionCTimeOut 不給的話預設60秒 timeout
+```
