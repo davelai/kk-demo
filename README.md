@@ -35,6 +35,13 @@ public function handle()
 
 ## RabbitMQ
 
+### vhost
+
+```shell
+rabbitmqctl add_vhost my_vhost
+rabbitmqctl set_permissions -p my_vhost root ".*" ".*" ".*"
+```
+
 ### 負載均衡
 
 [RabbitMQ集群配置与负载均衡详解](https://developer.baidu.com/article/details/2821799)

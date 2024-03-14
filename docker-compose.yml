@@ -55,6 +55,19 @@ services:
             - redis_data:/data
         networks:
             - sail
+    rabbit:
+        image: rabbitmq:3.8-management
+        hostname: rabbit
+        tty: true
+        restart: always
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+        environment:
+            - RABBITMQ_DEFAULT_USER=root
+            - RABBITMQ_DEFAULT_PASS=123123
+        networks:
+            - sail
 networks:
     sail:
         driver: bridge
