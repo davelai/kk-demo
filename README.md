@@ -162,6 +162,8 @@ queue 放前面的會先跑
 
 `sail artisan queue:work --queue=booking2,booking`
 
+## case 9. rabbit mq
+
 # Queue 的紀錄
 
 是否需要有 queue dispatch 的紀錄
