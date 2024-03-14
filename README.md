@@ -10,7 +10,8 @@
 | 事務支援   | 不支援                                                                  | 支援           | [支持](https://medium.com/willhanchen/rabbitmq-%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AD%89%E6%B6%88%E6%81%AF%E5%8F%AF%E9%9D%A0%E6%80%A7-398cb9d2836b) |
 
 * Redis：適合快速處理大量任務和高並發場景，但需要考慮資料持久性和記憶體限制。
-* 資料庫：適合任務量較小、對效能要求不高的場景，以及希望簡化部署和維護的情況。
+  * [laravel horizon](https://laravel.com/docs/10.x/horizon#installation) - Redis 隊列的監控工具 
+* 資料庫：適合較需要保證資料不會 loss 的場景
 * RabbitMQ：適合需要複雜的訊息提交和整合的場景，支援多種訊息模式和路由。
   * [RabbitMQ 簡介與 5 種設計模式](https://enzochang.com/rabbitmq-introduction/)
 
@@ -168,5 +169,8 @@ queue 放前面的會先跑
 
 是否需要有 queue dispatch 的紀錄
 
-* 自製 helper dispatch 後寫入 Elastic
-* 自製 worker artisan command 處理完 Queue 後寫入 Elastic
+* 自製 
+  * helper dispatch 後寫入 Elastic
+  * worker artisan command 處理完 Queue 後寫入 Elastic
+* Job event: `::before`, `::after`
+  * fail job event
