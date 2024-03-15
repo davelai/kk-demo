@@ -161,6 +161,17 @@ queue 放前面的會先跑
 
 ## case 9. rabbit mq
 
+## case 10. docker exit
+
+[source](https://laracasts.com/discuss/channels/servers/gracefully-stop-the-queue-worker-in-docker)
+
+主要的 docker init command 會接受 signal,
+
+等待執行結束才關掉 container
+
+但是太久的話還是會被強制結束
+
+
 ## Transaction
 
 DB queue 要注意如果是同個 connection 會一起進 transaction (commit 之後才會進 table),
@@ -189,3 +200,4 @@ public function handle()
   * worker artisan command 處理完 Queue 後寫入 Elastic
 * Job event: `::before`, `::after`
   * fail job event
+

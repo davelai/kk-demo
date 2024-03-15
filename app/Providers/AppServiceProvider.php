@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Console\Commands\QueueWorkCommand;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,7 +12,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(QueueWorkCommand::class, function ($app) {
+            return new QueueWorkCommand($app['queue.worker'], $app['cache.store']);
+        });
     }
 
     /**
