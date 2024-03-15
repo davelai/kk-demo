@@ -167,6 +167,8 @@ queue 放前面的會先跑
 
 主要的 docker init command 會接受 signal,
 
+`command: sh -c "php artisan queue:work --timeout=0"`
+
 等待執行結束才關掉 container
 
 但是太久的話還是會被強制結束
