@@ -203,3 +203,22 @@ public function handle()
 * Job event: `::before`, `::after`
   * fail job event
 
+# 任務重啟與失敗
+
+Jenkins 的重啟與 Queue 本身的失敗重啟
+
+該如何處理, 是否需要重啟
+
+重啟的話只要加上 retry
+
+但有些操作是不能重做的
+
+解決方案: [YanoljaV2](https://github.com/kkday-it/kkday-b2b-api/pull/3304)
+
+裡面 kay 有設計 pipeline
+
+如果沒個 pipeline 在沒有成功前都可以重做
+
+就可以考慮在 pipeline 改成 chain queue
+
+在終端後能從上次的 pipeline 繼續執行
