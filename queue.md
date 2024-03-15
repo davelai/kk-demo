@@ -19,6 +19,12 @@
 
 ### vhost
 
+安裝後要設定的東西，
+
+`RABBITMQ_VHOST=my_vhost`
+
+> Vhost 是 RabbitMQ 中的一個隔離層，它提供了一組獨立的環境，包括隊列、交換器、綁定等。
+
 ```shell
 rabbitmqctl add_vhost my_vhost
 rabbitmqctl set_permissions -p my_vhost root ".*" ".*" ".*"
