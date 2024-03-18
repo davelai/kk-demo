@@ -14,7 +14,7 @@ class Case1QueueChannelSplit extends Command
      *
      * @var string
      */
-    protected $signature = 'case2';
+    protected $signature = 'case1';
 
     /**
      * The console command description.

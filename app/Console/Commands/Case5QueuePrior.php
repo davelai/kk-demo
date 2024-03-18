@@ -14,7 +14,7 @@ class Case5QueuePrior extends Command
      *
      * @var string
      */
-    protected $signature = 'case8';
+    protected $signature = 'case5';
 
     /**
      * The console command description.

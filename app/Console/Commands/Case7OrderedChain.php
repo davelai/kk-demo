@@ -15,7 +15,7 @@ class Case7OrderedChain extends Command
      *
      * @var string
      */
-    protected $signature = 'case4';
+    protected $signature = 'case7';
 
     /**
      * The console command description.

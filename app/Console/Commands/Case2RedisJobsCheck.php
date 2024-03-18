@@ -14,7 +14,7 @@ class Case2RedisJobsCheck extends Command
      *
      * @var string
      */
-    protected $signature = 'case7';
+    protected $signature = 'case2';
 
     /**
      * The console command description.

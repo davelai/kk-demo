@@ -14,7 +14,7 @@ class Case4QueueSplit extends Command
      *
      * @var string
      */
-    protected $signature = 'case1';
+    protected $signature = 'case4';
 
     /**
      * The console command description.

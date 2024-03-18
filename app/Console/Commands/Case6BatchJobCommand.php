@@ -16,7 +16,7 @@ class Case6BatchJobCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'case3';
+    protected $signature = 'case6';
 
     /**
      * The console command description.

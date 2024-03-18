@@ -18,7 +18,7 @@ class Case9TimeOutByWorker extends Command
      *
      * @var string
      */
-    protected $signature = 'case6';
+    protected $signature = 'case9';
 
     /**
      * The console command description.

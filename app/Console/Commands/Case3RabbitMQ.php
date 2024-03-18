@@ -14,7 +14,7 @@ class Case3RabbitMQ extends Command
      *
      * @var string
      */
-    protected $signature = 'case9';
+    protected $signature = 'case3';
 
     /**
      * The console command description.

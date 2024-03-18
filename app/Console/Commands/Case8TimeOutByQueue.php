@@ -17,7 +17,7 @@ class Case8TimeOutByQueue extends Command
      *
      * @var string
      */
-    protected $signature = 'case5';
+    protected $signature = 'case8';
 
     /**
      * The console command description.
