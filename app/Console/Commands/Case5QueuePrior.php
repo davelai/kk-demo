@@ -7,14 +7,14 @@ use App\Jobs\JobB;
 use App\Jobs\JobC;
 use Illuminate\Console\Command;
 
-class Case9RabbitMQ extends Command
+class Case5QueuePrior extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'case9';
+    protected $signature = 'case8';
 
     /**
      * The console command description.
@@ -28,12 +28,13 @@ class Case9RabbitMQ extends Command
      */
     public function handle()
     {
-//        sail artisan queue:work rabbitmq
+//      sail artisan queue:work --queue=booking2,booking
+//      job c 先跑
 
         dispatch(new JobB(1))
-            ->onConnection('rabbitmq');
+            ->onQueue('booking');
 
         dispatch(new JobC(2))
-            ->onConnection('rabbitmq');
+            ->onQueue('booking2');
     }
 }

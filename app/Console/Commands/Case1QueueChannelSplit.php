@@ -7,14 +7,14 @@ use App\Jobs\JobB;
 use App\Jobs\JobC;
 use Illuminate\Console\Command;
 
-class Case8QueuePrior extends Command
+class Case1QueueChannelSplit extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'case8';
+    protected $signature = 'case2';
 
     /**
      * The console command description.
@@ -28,13 +28,17 @@ class Case8QueuePrior extends Command
      */
     public function handle()
     {
-//      sail artisan queue:work --queue=booking2,booking
-//      job c 先跑
+// php artisan queue:work connectionA --queue=booking
+// php artisan queue:work connectionB --queue=booking2
+
+// 各個 connection 可以切換 sync, redis, db ...
 
         dispatch(new JobB(1))
+            ->onConnection('connectionA')
             ->onQueue('booking');
 
         dispatch(new JobC(2))
+            ->onConnection('connectionB')
             ->onQueue('booking2');
     }
 }

@@ -6,19 +6,18 @@ use App\Jobs\JobA;
 use App\Jobs\JobB;
 use App\Jobs\JobC;
 use App\Jobs\JobD;
-use App\Jobs\JobE;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Str;
 
-class Case6TimeOutByWorker extends Command
+class Case8TimeOutByQueue extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'case6';
+    protected $signature = 'case5';
 
     /**
      * The console command description.
@@ -32,12 +31,12 @@ class Case6TimeOutByWorker extends Command
      */
     public function handle()
     {
-//      sail artisan  queue:work connectionCTimeOut --timeout=10
-//      sail artisan  queue:work connectionCTimeOut 不給的話預設60秒 timeout
+//        sail artisan queue:work connectionCTimeOut
+        // retry 的秒數是根據： 'retry_after' => 20,
 
-//      如果想要無限時呢
-//      sail artisan  queue:work connectionCTimeOut --timeout=0
-        dispatch(new JobE(Str::uuid()))
+        dispatch(new JobD(Str::uuid()))
             ->onConnection('connectionCTimeOut');
+
+//        sail artisan  queue:work connectionCTimeOut --timeout=10
     }
 }

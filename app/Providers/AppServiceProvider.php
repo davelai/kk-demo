@@ -12,9 +12,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(QueueWorkCommand::class, function ($app) {
-            return new QueueWorkCommand($app['queue.worker'], $app['cache.store']);
-        });
+//        $this->app->bind(QueueWorkCommand::class, function ($app) {
+//            return new QueueWorkCommand($app['queue.worker'], $app['cache.store']);
+//        });
     }
 
     /**

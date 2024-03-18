@@ -77,17 +77,7 @@ worker 從 db / redis queue 拿出資料之後,
 
 # Laravel Queue 用法
 
-## case 1: worker by queue
-
-可以根據 queue 來分不同 worker, 但是 driver 都是用同一個
-
-```php
-dispatch(new JobB(1))
-            ->onQueue('booking');
-```
-
-
-## case 2: worker by connection
+## case 1: worker by connection
 
 可以根據 connection 來分不同的 worker,
 
@@ -101,7 +91,27 @@ dispatch(new JobB(1))
     ->onQueue('booking');
 ```
 
-## case 3: batch job
+## case 2. redis queue
+## case 3. rabbit mq
+
+`sail artisan queue:work --queue=booking2,booking`
+
+## case 4: worker by queue
+
+可以根據 queue 來分不同 worker, 但是 driver 都是用同一個
+
+```php
+dispatch(new JobB(1))
+            ->onQueue('booking');
+```
+
+
+## case 5. 優先度
+
+queue 放前面的會先跑
+
+
+## case 6: batch job
 
 無順序性要求, 
 
@@ -121,7 +131,7 @@ Bus::batch([
 ])
 ```
 
-## case 4. chain job
+## case 7. chain job
 
 有順序性要求, 且失敗會中斷
 
@@ -133,7 +143,7 @@ Bus::chain([
 ])->dispatch();
 ```
 
-## case 5. job timeout
+## case 8. job timeout
 
 可以設定 job 的 timeout， 
 
@@ -146,7 +156,7 @@ Bus::chain([
     public int $timeout = 3;
 ```
 
-## case 6. worker timeout
+## case 9. worker timeout
 
 要注意如果 job 沒設置 timeout,
 
@@ -157,15 +167,6 @@ artisan command 預設 60 秒 timeout
 //      sail artisan  queue:work connectionCTimeOut 不給的話預設60秒 timeout
 ```
 
-## case 7. redis queue
-
-## case 8. 優先度
-
-queue 放前面的會先跑
-
-`sail artisan queue:work --queue=booking2,booking`
-
-## case 9. rabbit mq
 
 ## case 10. docker exit
 

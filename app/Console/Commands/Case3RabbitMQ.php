@@ -7,14 +7,14 @@ use App\Jobs\JobB;
 use App\Jobs\JobC;
 use Illuminate\Console\Command;
 
-class Case7RedisJobsCheck extends Command
+class Case3RabbitMQ extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'case7';
+    protected $signature = 'case9';
 
     /**
      * The console command description.
@@ -28,16 +28,12 @@ class Case7RedisJobsCheck extends Command
      */
     public function handle()
     {
-//        sail artisan queue:work redis
-
-// redis-cli
-// keys *
-// lrange laravel_database_queues:default 0 -1
+//        sail artisan queue:work rabbitmq
 
         dispatch(new JobB(1))
-            ->onConnection('redis');
+            ->onConnection('rabbitmq');
 
         dispatch(new JobC(2))
-            ->onConnection('redis');
+            ->onConnection('rabbitmq');
     }
 }

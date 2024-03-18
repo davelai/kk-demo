@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
-class Case3BatchJobCommand extends Command
+class Case6BatchJobCommand extends Command
 {
     /**
      * The name and signature of the console command.

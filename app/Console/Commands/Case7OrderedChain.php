@@ -6,15 +6,16 @@ use App\Jobs\JobA;
 use App\Jobs\JobB;
 use App\Jobs\JobC;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Bus;
 
-class Case2QueueChannelSplit extends Command
+class Case7OrderedChain extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'case2';
+    protected $signature = 'case4';
 
     /**
      * The console command description.
@@ -28,17 +29,17 @@ class Case2QueueChannelSplit extends Command
      */
     public function handle()
     {
-// php artisan queue:work connectionA --queue=booking
-// php artisan queue:work connectionB --queue=booking2
+//        sail artisan queue:work
+        Bus::chain([
+            new JobB('c 1'),
+            new JobB('c 2'),
+            new JobB('c 3'),
+        ])->dispatch();
 
-// 各個 connection 可以切換 sync, redis, db ...
+//        如果是這樣, 開2個 worker, 就不會按照順序
+//        dispatch(new JobB('c 1'));
+//        dispatch(new JobB('c 2'));
+//        dispatch(new JobB('c 3'));
 
-        dispatch(new JobB(1))
-            ->onConnection('connectionA')
-            ->onQueue('booking');
-
-        dispatch(new JobC(2))
-            ->onConnection('connectionB')
-            ->onQueue('booking2');
     }
 }
