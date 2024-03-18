@@ -1,7 +1,7 @@
 services:
     laravel.test:
         build:
-            context: ./vendor/laravel/sail/runtimes/8.3
+            context: ./docker/php83
             dockerfile: Dockerfile
             args:
                 WWWGROUP: '${WWWGROUP}'
@@ -23,6 +23,7 @@ services:
             - sail
         depends_on:
             - mysql
+#        command: sh -c "php artisan queue:work --timeout=0"
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:
@@ -47,9 +48,32 @@ services:
                 - '-p${DB_PASSWORD}'
             retries: 3
             timeout: 5s
+    redis:
+        image: 'redis:alpine'
+        ports:
+            - '${REDIS_FORWARD_PORT:-6379}:6379'
+        volumes:
+            - redis_data:/data
+        networks:
+            - sail
+    rabbit:
+        image: rabbitmq:3.8-management
+        hostname: rabbit
+        tty: true
+        restart: always
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+        environment:
+            - RABBITMQ_DEFAULT_USER=root
+            - RABBITMQ_DEFAULT_PASS=123123
+        networks:
+            - sail
 networks:
     sail:
         driver: bridge
 volumes:
     sail-mysql:
+        driver: local
+    redis_data:
         driver: local
