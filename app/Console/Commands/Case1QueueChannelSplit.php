@@ -28,17 +28,16 @@ class Case1QueueChannelSplit extends Command
      */
     public function handle()
     {
-// php artisan queue:work connectionA --queue=booking
-// php artisan queue:work connectionB --queue=booking2
+// queue.php
+// sail artisan queue:work connectionA
+// sail artisan queue:work connectionB
 
 // 各個 connection 可以切換 sync, redis, db ...
 
         dispatch(new JobB(1))
-            ->onConnection('connectionA')
-            ->onQueue('booking');
+            ->onConnection('connectionA');
 
         dispatch(new JobC(2))
-            ->onConnection('connectionB')
-            ->onQueue('booking2');
+            ->onConnection('connectionB');
     }
 }
